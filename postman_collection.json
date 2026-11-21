@@ -1,0 +1,160 @@
+{
+  "info": {
+    "name": "CyberGuard-API Collection",
+    "description": "Koleksi endpoint RESTful API CyberGuard untuk UTS Pemrograman Web Lanjut",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "System",
+      "item": [
+        {
+          "name": "Root Info",
+          "request": { "method": "GET", "url": "{{base_url}}/" }
+        },
+        {
+          "name": "Health Check",
+          "request": { "method": "GET", "url": "{{base_url}}/api/health" }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": { "method": "GET", "url": "{{base_url}}/api/users" }
+        },
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"analyst_baru\",\n  \"email\": \"analyst@cyberguard.id\",\n  \"password\": \"password123\",\n  \"role\": \"analyst\"\n}"
+            },
+            "url": "{{base_url}}/api/users"
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": { "method": "GET", "url": "{{base_url}}/api/users/1" }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"admin\"\n}"
+            },
+            "url": "{{base_url}}/api/users/1"
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": { "method": "DELETE", "url": "{{base_url}}/api/users/1" }
+        }
+      ]
+    },
+    {
+      "name": "Assets",
+      "item": [
+        {
+          "name": "Get All Assets (with Filter & Search)",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/assets?criticality=critical&search=server"
+          }
+        },
+        {
+          "name": "Create Asset",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asset_name\": \"Gateway-Firewall-01\",\n  \"ip_address\": \"192.168.10.1\",\n  \"asset_type\": \"Firewall\",\n  \"criticality\": \"critical\",\n  \"owner_department\": \"Network Security\"\n}"
+            },
+            "url": "{{base_url}}/api/assets"
+          }
+        },
+        {
+          "name": "Get Asset by ID",
+          "request": { "method": "GET", "url": "{{base_url}}/api/assets/1" }
+        }
+      ]
+    },
+    {
+      "name": "Vulnerabilities",
+      "item": [
+        {
+          "name": "Get All Vulnerabilities",
+          "request": { "method": "GET", "url": "{{base_url}}/api/vulnerabilities" }
+        },
+        {
+          "name": "Create Vulnerability",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asset_id\": 1,\n  \"cve_code\": \"CVE-2026-2048\",\n  \"title\": \"Remote Code Execution on Web Service\",\n  \"cvss_score\": 9.8,\n  \"severity\": \"critical\"\n}"
+            },
+            "url": "{{base_url}}/api/vulnerabilities"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Incidents",
+      "item": [
+        {
+          "name": "Get All Incidents",
+          "request": { "method": "GET", "url": "{{base_url}}/api/incidents" }
+        },
+        {
+          "name": "Create Incident",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asset_id\": 1,\n  \"reported_by\": 1,\n  \"title\": \"Brute Force SSH Attempt\",\n  \"incident_type\": \"Unauthorized Access\",\n  \"severity\": \"high\",\n  \"description\": \"Percobaan login gagal berulang kali dari IP asing.\"\n}"
+            },
+            "url": "{{base_url}}/api/incidents"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Incident Responses",
+      "item": [
+        {
+          "name": "Get All Incident Responses",
+          "request": { "method": "GET", "url": "{{base_url}}/api/incident-responses" }
+        },
+        {
+          "name": "Create Incident Response",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"incident_id\": 1,\n  \"responder_id\": 1,\n  \"action_taken\": \"Blokir IP penyerang pada firewall & reset kredensial\",\n  \"notes\": \"Monitoring ketat selama 24 jam.\"\n}"
+            },
+            "url": "{{base_url}}/api/incident-responses"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000"
+    }
+  ]
+}
